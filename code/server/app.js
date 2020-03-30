@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 4000;
 dotenv.config({ path: './config/config.env' });
 
 app.use('/graphql', graphqlHTTP({
+  graphiql: 1,
   schema
 }));
 
