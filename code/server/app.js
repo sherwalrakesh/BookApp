@@ -2,6 +2,7 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 const schema = require('./schema/schema');
 const app = express();
@@ -10,6 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const dbuser = 'rakeshsherwal';
 const password = 'mlab007';
+
 // Connect to mlab books db
 mongoose.connect(`mongodb://${dbuser}:${password}@ds119110.mlab.com:19110/gql-books`);
 mongoose.connection.once('open', () => {
@@ -17,6 +19,8 @@ mongoose.connection.once('open', () => {
 
 })
 dotenv.config({ path: './config/config.env' });
+
+app.use(cors());
 
 app.use('/graphql', graphqlHTTP({
   graphiql: 1,
